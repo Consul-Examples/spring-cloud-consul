@@ -22,10 +22,23 @@ public class ConsulRestController {
 	@GetMapping(path = "/get/{msg}")
 	public ResponseEntity<?>	get(@PathVariable("msg") String msg) throws ConsulException {
 		logger.info("Start : " + getClass().getName() + " : get()");
-		if( "critical".equals(msg))
-			throw new ConsulException(HttpStatus.TOO_MANY_REQUESTS);
-		long[] ar = new long[Integer.MAX_VALUE];
+		try {
+			if( "critical".equals(msg))
+				throw new ConsulException(HttpStatus.TOO_MANY_REQUESTS);
+			long[] ar = new long[Integer.MAX_VALUE];
+		} catch (Exception e) {
+			logger.error("Exception has occurred : " + e.getMessage());
+		}
 		return new ResponseEntity<>("success" + msg, HttpStatus.OK);
+	}
+	
+	@GetMapping(path = "/out")
+	public ResponseEntity<?>	getoutofmemory(){
+		logger.info("Start : " + getClass().getName() + " : getoutofmemory()");
+		
+			long[] ar = new long[Integer.MAX_VALUE];
+		
+		return new ResponseEntity<>("success" , HttpStatus.OK);
 	}
 	
 	@GetMapping(path = "/up")

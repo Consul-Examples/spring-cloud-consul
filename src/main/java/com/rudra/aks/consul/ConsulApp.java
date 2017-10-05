@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @EnableDiscoveryClient
 @RestController
-public class Application {
+public class ConsulApp {
 
     @RequestMapping("/")
     public String home() {
@@ -23,12 +23,12 @@ public class Application {
     public ResponseEntity<?>	checkHealth() {
     	//return new ResponseEntity<>(HttpStatus.TOO_MANY_REQUESTS);
     	//return new ResponseEntity<>(new HealthStatus("test-warn", HttpStatus.TOO_MANY_REQUESTS).getCode());
-    	return new ResponseEntity<>(HealthStatus.code);
+    	return new ResponseEntity<>(HealthStatus.msg, HealthStatus.code);
     }
     
     public static void main(String[] args) {
         System.getProperties().put("server.port", 8910);
-    	new SpringApplicationBuilder(Application.class).web(true).run(args);
+    	new SpringApplicationBuilder(ConsulApp.class).web(true).run(args);
     }
 
 }
